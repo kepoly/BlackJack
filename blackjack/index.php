@@ -7,7 +7,7 @@ define("WEBSITE_PATH", "http://localhost:8081/BlackJack/blackjack/");
 ?>
 
 
-    <div ng-view=""></div>
+<div ng-view=""></div>
 
 
 <?php
