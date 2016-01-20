@@ -3,7 +3,7 @@
 @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
 
 body {
-    background: url('../img/bg.png') repeat;
+    background: url('../img/backk.jpg');
     color: #000;
     font-family: Merriweather Sans;
 }
@@ -22,8 +22,9 @@ a:hover {
 
 #mainTable {
     padding: 25px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid black;
+    background: url('../img/bgbg.png');
+    border: 10px solid tan;
+    border-radius: 50px;
     width: 100%;
     height: auto;
     margin-top: 100px;
@@ -38,9 +39,22 @@ a:hover {
 }
 
 .dealer img {
-    max-width: 150px;
+    max-width: 100px;
 }
 
 .player img {
-    max-width: 150px;
+    max-width: 100px;
+}
+
+.card1 {
+    padding: 0;
+    width: 11%;
+}
+
+.message {
+    color: greenyellow;
+}
+
+.playersTotal {
+    color: greenyellow;
 }

@@ -71,6 +71,12 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
     $scope.playersCards = [];
     $scope.dealersCards = [];
 
+    $scope.betDisabled = 0;
+    $scope.hitDisabled = 0;
+    $scope.standDisabled = 0;
+    $scope.newDeckDisabled = 0;
+    $scope.betAmountDisabled = 0;
+
     //each suit is numbered from 1-4 return the corresponding suit from cardValue.
     $scope.returnCardSuit = function (cardValue) {
         switch (cardValue) {
@@ -303,7 +309,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
             areadableHand[i] = {"name": "Hidden", "suit": "Hidden", "image": "back_of_card"};
 
             if ($scope.dealersGo == 0 && i == 1 && $scope.playersDone == 0) {
-                areadableHand[i] = {"name": "default", "suit": "default", "image": "back_of_card"};
+                areadableHand[i] = {"name": "Cards", "suit": "Hidden", "image": "back_of_card"};
             } else {
                 areadableHand[i]["name"] = cardValue;
                 areadableHand[i]['suit'] = cardSuit;
@@ -331,22 +337,48 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
         if (playerOneValue > 21) {
             $scope.message = "Game Over - Player Over 21";
+            $scope.betDisabled = 0;
+            $scope.hitDisabled = 1;
+            $scope.standDisabled = 1;
         } else if (playerOneValue == 21 && dealerOneValue < 21 && $scope.playersCards.length == 2) {
             $scope.message = "Player Wins - BlackJack 21";
-            $scope.startingBalance += $scope.betAmount * 2.5;
-        } else if (dealerOneValue == 21 && playerOneValue < 21) {
-            $scope.message = "Dealer Wins - BlackJack 21";
+
+            $timeout(function () {
+                $scope.startingBalance += $scope.betAmount * 2.5;
+                $scope.betDisabled = 0;
+                $scope.hitDisabled = 1;
+                $scope.standDisabled = 1;
+            }, 1000);
+
+        } else if (dealerOneValue == 21 && playerOneValue < 21 && $scope.dealersGo == 1) {
+            $scope.message = "Dealer Wins - BlackJack/21";
+            $scope.betDisabled = 0;
+            $scope.hitDisabled = 1;
+            $scope.standDisabled = 1;
         } else if (dealerOneValue > 21) {
             $scope.message = "Player Wins - Dealer Over 21";
             $scope.startingBalance += $scope.betAmount * 2;
-        } else if (playerOneValue == dealerOneValue) {
+            $scope.betDisabled = 0;
+            $scope.hitDisabled = 1;
+            $scope.standDisabled = 1;
+        } else if (playerOneValue == dealerOneValue  && $scope.dealersGo == 1) {
             $scope.message = "Push - Player and Dealer Cards Equal";
             $scope.startingBalance += $scope.betAmount;
+            $scope.betDisabled = 0;
+            $scope.hitDisabled = 1;
+            $scope.standDisabled = 1;
+            $scope.showDealerTotal = $scope.getHandSum($scope.dealersCards);
         } else if (dealerOneValue > playerOneValue && dealerOneValue <= 21 && $scope.dealersGo == 1) {
             $scope.message = "Dealer Wins - Cards more than player";
+            $scope.betDisabled = 0;
+            $scope.hitDisabled = 1;
+            $scope.standDisabled = 1;
         } else if (playerOneValue > dealerOneValue && dealerOneValue >= 17 && $scope.dealersGo == 1) {
             $scope.message = "Player Wins - Cards more than dealer";
             $scope.startingBalance += $scope.betAmount * 2;
+            $scope.betDisabled = 0;
+            $scope.hitDisabled = 1;
+            $scope.standDisabled = 1;
         } else {
             $scope.message = "Hit or Stay ?";
         }
@@ -379,14 +411,22 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
             $scope.dealersCards[newIndex1] = $scope.dealNextCard();
 
             $scope.dealersShownCards = $scope.returnHand($scope.dealersCards);
-
+            $scope.showDealerTotal = $scope.getHandSum($scope.dealersCards);
 
         }
+
+
+        $scope.playSound = "http://localhost/BlackJack/blackjack/deckDeal.mp3";
+
+        $timeout(function () {
+            $scope.playSound = "";
+        }, 500);
+
 
         checkDealersTotal = $scope.getHandSum($scope.dealersCards);
         checkPlayersTotal = $scope.getHandSum($scope.playersCards);
 
-        if (checkDealersTotal < 17 && checkPlayersTotal < 21 && playerName == "Dealer") {
+        if (checkDealersTotal < 17 && checkPlayersTotal < 22 && playerName == "Dealer") {
             $scope.dealersTurn(checkDealersTotal);
         }
 
@@ -401,6 +441,12 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         $scope.dealersGo = 1;
         $scope.dealersShownCards = $scope.returnHand($scope.dealersCards);
 
+        $scope.playSound = "http://localhost/BlackJack/blackjack/deckDeal.mp3";
+
+        $timeout(function () {
+            $scope.playSound = "";
+        }, 500);
+
         checkDealersValue = $scope.getHandSum($scope.dealersCards);
 
         if (checkDealersValue < 17) {
@@ -413,7 +459,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
     $scope.dealersTurn = function (dealersCount) {
 
-        console.log("Dealers turn count: " + dealersCount);
+
         if (dealersCount < 17) {
 
             $timeout(function () {
@@ -438,6 +484,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
         $scope.playersCards = [];
         $scope.dealersCards = [];
+        $scope.showDealerTotal = "";
         $scope.message = "";
 
         var balance;
