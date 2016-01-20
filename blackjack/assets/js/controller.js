@@ -41,7 +41,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
     $scope.cards = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King'];
     $scope.suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-    $scope.numOfDecks = 1;
+    $scope.numOfDecks = 4;
 
     $scope.playersDone = 0;
     $scope.dealersGo = 0;
@@ -308,36 +308,29 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         playerOneValue = $scope.getHandSum(playerOne);
         dealerOneValue = $scope.getHandSum(dealerOne);
 
-        if(playerOneValue > 21) {
+        if (playerOneValue > 21) {
             $scope.message = "Game Over - Player Over 21";
-        } else if (playerOneValue == 21) {
+        } else if (playerOneValue == 21 && dealerOneValue < 21 && $scope.playersCards.length == 2) {
             $scope.message = "Player Wins - BlackJack 21";
+            $scope.startingBalance += $scope.betAmount * 2.5;
+        } else if (dealerOneValue == 21 && playerOneValue < 21) {
+            $scope.message = "Dealer Wins - BlackJack 21";
         } else if (dealerOneValue > 21) {
             $scope.message = "Player Wins - Dealer Over 21";
-        } else if(playerOneValue == dealerOneValue) {
+            $scope.startingBalance += $scope.betAmount * 2;
+        } else if (playerOneValue == dealerOneValue) {
             $scope.message = "Push - Player and Dealer Cards Equal";
-        }else {
+            $scope.startingBalance += $scope.betAmount;
+        } else if (dealerOneValue > playerOneValue && dealerOneValue <= 21 && $scope.dealersGo == 1) {
+            $scope.message = "Dealer Wins - Cards more than player";
+        } else if (playerOneValue > dealerOneValue && dealerOneValue >= 17 && $scope.dealersGo == 1) {
+            $scope.message = "Player Wins - Cards more than dealer";
+            $scope.startingBalance += $scope.betAmount * 2;
+        } else {
             $scope.message = "Hit or Stay ?";
         }
 
     }
-
-    //if dealersgo is set to 0 and i is 1 and playersDone is set to 0
-
-    $scope.playersCards[0] = $scope.dealNextCard();
-    $scope.dealersCards[0] = $scope.dealNextCard();
-    $scope.playersCards[1] = $scope.dealNextCard();
-    $scope.dealersCards[1] = $scope.dealNextCard();
-
-    $scope.dealersGo = 1;
-    $scope.playersShownCards = $scope.returnHand($scope.playersCards);
-
-    $scope.dealersGo = 0;
-    $scope.dealersShownCards = $scope.returnHand($scope.dealersCards);
-
-    $scope.showPlayerTotal = $scope.getHandSum($scope.playersCards);
-
-    $scope.checkWinner($scope.playersCards, $scope.dealersCards);
 
     $scope.hitForCard = function (playerName) {
 
@@ -345,6 +338,10 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         var newIndex1 = $scope.dealersCards.length;
         var checkDealersTotal;
         var checkPlayersTotal;
+
+        if ($scope.start.length < 1) {
+            $scope.message = "The Deck has Been Depleted, Please Request a new Deck.";
+        }
 
 
         if (playerName == "Player") {
@@ -368,7 +365,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         checkDealersTotal = $scope.getHandSum($scope.dealersCards);
         checkPlayersTotal = $scope.getHandSum($scope.playersCards);
 
-        if(checkDealersTotal < 17 && checkPlayersTotal < 21 && playerName == "Dealer") {
+        if (checkDealersTotal < 17 && checkPlayersTotal < 21 && playerName == "Dealer") {
             $scope.dealersTurn(checkDealersTotal);
         }
 
@@ -385,18 +382,20 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
         checkDealersValue = $scope.getHandSum($scope.dealersCards);
 
-        if(checkDealersValue < 17) {
+        if (checkDealersValue < 17) {
             $scope.dealersTurn(checkDealersValue);
+        } else {
+            $scope.checkWinner($scope.playersCards, $scope.dealersCards);
         }
 
     }
 
-    $scope.dealersTurn = function(dealersCount) {
+    $scope.dealersTurn = function (dealersCount) {
 
-    console.log("Dealers turn count: " + dealersCount);
-        if(dealersCount < 17) {
+        console.log("Dealers turn count: " + dealersCount);
+        if (dealersCount < 17) {
 
-            $timeout(function() {
+            $timeout(function () {
 
                 $scope.hitForCard("Dealer");
 
@@ -406,7 +405,52 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }
 
+    $scope.getNewDeck = function () {
 
+        $scope.start = $scope.startCards();
+    }
+
+
+    $scope.startGame = function () {
+        //if dealersgo is set to 0 and i is 1 and playersDone is set to 0
+
+
+        $scope.playersCards = [];
+        $scope.dealersCards = [];
+        $scope.message = "";
+
+        var balance;
+        var bet;
+        balance = $scope.startingBalance;
+        bet = $scope.betAmount;
+
+        if ($scope.start.length <= 8) {
+            $scope.message = "Please Request a New Deck the Cards are Depleted.";
+        } else {
+
+            $scope.startingBalance -= bet;
+
+            $scope.playersCards[0] = $scope.dealNextCard();
+            $scope.dealersCards[0] = $scope.dealNextCard();
+            $scope.playersCards[1] = $scope.dealNextCard();
+            $scope.dealersCards[1] = $scope.dealNextCard();
+
+            $scope.dealersGo = 1;
+            $scope.playersShownCards = $scope.returnHand($scope.playersCards);
+
+            $scope.dealersGo = 0;
+            $scope.dealersShownCards = $scope.returnHand($scope.dealersCards);
+
+            $scope.showPlayerTotal = $scope.getHandSum($scope.playersCards);
+            $scope.checkWinner($scope.playersCards, $scope.dealersCards);
+
+            console.log($scope.start.length);
+
+
+        }
+
+
+    }
 
 
 }]);

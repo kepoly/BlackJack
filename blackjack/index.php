@@ -1,13 +1,12 @@
 <?php
-define("WEBSITE_PATH", "http://localhost:8081/BlackJack/blackjack/");
- require_once 'src/inc/_header.php';
-
+define("WEBSITE_PATH", "http://localhost/BlackJack/blackjack/");
+require_once 'src/inc/_header.php';
 
 
 ?>
 
 
-<div ng-view=""></div>
+    <div ng-view=""></div>
 
 
 <?php

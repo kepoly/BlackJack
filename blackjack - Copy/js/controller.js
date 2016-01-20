@@ -17,14 +17,14 @@ app.filter('num', function () {
     };
 });
 
-app.filter('sumByArray', function() {
-    return function(data) {
+app.filter('sumByArray', function () {
+    return function (data) {
         if (data.length == 0) {
             return 0;
         }
 
         var sum = 0;
-        for(var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             sum += data[i];
         }
 
@@ -93,7 +93,7 @@ app.controller('listCtrl', ['$scope', function ($scope) {
     $scope.returnCardValue = function (cardValue) {
         switch (cardValue) {
             case 1:
-                if($scope.aceCheck < 11) {
+                if ($scope.aceCheck < 11) {
                     $scope.returnVal = 11;
                 } else {
                     $scope.returnVal = 1;
@@ -238,7 +238,7 @@ app.controller('listCtrl', ['$scope', function ($scope) {
         return rv;
     }
 
-    $scope.startCards = function() {
+    $scope.startCards = function () {
         //let's get a new deck of cards
         $scope.preparedCards = $scope.newDeck();
 
@@ -296,7 +296,7 @@ app.controller('listCtrl', ['$scope', function ($scope) {
     }
 
     //We are going to process the first four cards and return the data to show the cards and their values.
-    $scope.processFirstFour = function(checkCards) {
+    $scope.processFirstFour = function (checkCards) {
         $scope.checkCards = checkCards;
         $scope.dealersFirstCheck = $scope.checkCards['dealersFirst'];
         $scope.dealersSecondCheck = $scope.checkCards['dealersSecond'];
@@ -326,17 +326,16 @@ app.controller('listCtrl', ['$scope', function ($scope) {
 
     //The players Hits, we need to check for several things before we can spit out a new card.
     //Has the card been pulled?
-    $scope.playerHits = function() {
+    $scope.playerHits = function () {
 
 
-
-        if($scope.playersCard2Value == 11 && $scope.playersTotal > 21){
+        if ($scope.playersCard2Value == 11 && $scope.playersTotal > 21) {
             $scope.playersCard2Value = 1;
         }
 
         $scope.playerHitCard = Math.floor(Math.random() * (51 - 0 + 1)) + 0;
 
-        while($scope.checkFirstFour.indexOf($scope.playerHitCard) != -1 || $scope.playersHits.indexOf($scope.playerHitCard) != -1){
+        while ($scope.checkFirstFour.indexOf($scope.playerHitCard) != -1 || $scope.playersHits.indexOf($scope.playerHitCard) != -1) {
 
             $scope.playerHitCard = Math.floor(Math.random() * (51 - 0 + 1)) + 0;
 
@@ -345,33 +344,32 @@ app.controller('listCtrl', ['$scope', function ($scope) {
         //this is a switch to check for a cards value(ace)
         //if the players total is greater than 10 ie >11
         //lets set the switch above 11 since you can't have 22 in BJ
-        if($scope.playersTotal > 10) {
+        if ($scope.playersTotal > 10) {
             $scope.aceCheck = 12;
             console.log($scope.aceCheck);
         }
 
         $scope.playersHits.push($scope.playerHitCard);
 
-        for(var i = 0; i < $scope.playersHits.length; i++) {
+        for (var i = 0; i < $scope.playersHits.length; i++) {
             $scope.playersHitCards[i] = $scope.returnCardName($scope.finalCards[$scope.playersHits[i]].number) + "_of_" +
                 $scope.returnCardSuit($scope.finalCards[$scope.playersHits[i]].suit);
         }
 
-        for(var j = 0; j < $scope.playersHits.length; j++) {
+        for (var j = 0; j < $scope.playersHits.length; j++) {
             $scope.playersHitCardsValues[j] = $scope.returnCardValue($scope.finalCards[$scope.playersHits[j]].number);
         }
 
 
-
         $scope.playersTotal += $scope.returnCardValue($scope.finalCards[$scope.playerHitCard].number);
 
-        if($scope.playersCard1Value == 11 && $scope.playersTotal > 21){
+        if ($scope.playersCard1Value == 11 && $scope.playersTotal > 21) {
             $scope.playersTotal -= 11;
             $scope.playersTotal += 1;
             $scope.playersCard1Value = 1;
         }
 
-        if($scope.playersCard2Value == 11 && $scope.playersTotal > 21){
+        if ($scope.playersCard2Value == 11 && $scope.playersTotal > 21) {
             $scope.playersTotal -= 11;
             $scope.playersTotal += 1;
             $scope.playersCard2Value = 1;
@@ -382,7 +380,7 @@ app.controller('listCtrl', ['$scope', function ($scope) {
 
     }
 
-    $scope.doDealer = function() {
+    $scope.doDealer = function () {
 
         $scope.dealersCard2 = $scope.returnCardName($scope.finalCards[$scope.dealersSecondCheck].number) + "_of_" +
             $scope.returnCardSuit($scope.finalCards[$scope.dealersSecondCheck].suit);
@@ -390,7 +388,7 @@ app.controller('listCtrl', ['$scope', function ($scope) {
 
     }
 
-    $scope.anotherGame = function() {
+    $scope.anotherGame = function () {
 
         $scope.playersHits = [];
         $scope.dealersHits = [];
@@ -408,19 +406,18 @@ app.controller('listCtrl', ['$scope', function ($scope) {
         $scope.processFirstFour($scope.checkCards);
 
 
-
     }
 
 
-    $scope.betAndStart = function() {
+    $scope.betAndStart = function () {
 
-        $scope.totalCounter = function(total) {
+        $scope.totalCounter = function (total) {
 
-            if(total > 21) {
+            if (total > 21) {
                 $scope.buttonDisabled = 1;
 
                 $scope.message = "Game Over";
-            } else if(total === 21) {
+            } else if (total === 21) {
                 $scope.buttonDisabled = 1;
                 $scope.message = "BlackJack";
             }
@@ -445,8 +442,6 @@ app.controller('listCtrl', ['$scope', function ($scope) {
     }
 
     $scope.hitsSum = $scope.playersHitCardsValues.reduce(add, 0);
-
-
 
 
 }]);

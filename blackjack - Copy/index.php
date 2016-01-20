@@ -1,7 +1,6 @@
 <?php
 define("WEBSITE_PATH", "http://localhost/games/blackjack/");
- require_once 'inc/_header.php';
-
+require_once 'inc/_header.php';
 
 
 ?>
