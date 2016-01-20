@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02da9fd1-4100-47e7-96ae-f173e751a93e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/blackjack/assets/libs/PHPMailer.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/blackjack/assets/libs/pw_lib.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blackjack/assets/js/controller.js" afterPath="$PROJECT_DIR$/blackjack/assets/js/controller.js" />
     </list>
     <ignored path="games.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blackjack/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.025085518">
+            <state vertical-scroll-proportion="-0.7586207">
               <caret line="1" column="61" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
               <folding />
             </state>
@@ -46,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blackjack/assets/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.3333335">
-              <caret line="408" column="0" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.22758621">
+              <caret line="366" column="0" selection-start-line="366" selection-start-column="0" selection-end-line="366" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -91,9 +90,9 @@
         <option value="$PROJECT_DIR$/blackjack/js/controller.js" />
         <option value="$PROJECT_DIR$/blackjack/src/inc/_footer.php" />
         <option value="$PROJECT_DIR$/blackjack/src/inc/_header.php" />
-        <option value="$PROJECT_DIR$/blackjack/assets/js/controller.js" />
         <option value="$PROJECT_DIR$/blackjack/src/views/home.php" />
         <option value="$PROJECT_DIR$/blackjack/index.php" />
+        <option value="$PROJECT_DIR$/blackjack/assets/js/controller.js" />
       </list>
     </option>
   </component>
@@ -253,14 +252,20 @@
       <option name="project" value="LOCAL" />
       <updated>1453249154350</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Removed unused LIBS.">
+      <created>1453249562610</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1453249562610</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1783029" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1783029" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -294,7 +299,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Working Player and Dealer Hit/Stay." />
     <MESSAGE value="Game is now functional. ToDo: Bet Amount changeable, split, double. Additional Players, and commenting this incase someone else happens to stumble upon it." />
-    <option name="LAST_COMMIT_MESSAGE" value="Game is now functional. ToDo: Bet Amount changeable, split, double. Additional Players, and commenting this incase someone else happens to stumble upon it." />
+    <MESSAGE value="Removed unused LIBS." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed unused LIBS." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -525,14 +531,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blackjack/assets/js/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3333335">
-          <caret line="408" column="0" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blackjack/src/inc/_footer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.7586207">
@@ -543,8 +541,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blackjack/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.025085518">
+        <state vertical-scroll-proportion="-0.7586207">
           <caret line="1" column="61" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blackjack/assets/js/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22758621">
+          <caret line="366" column="0" selection-start-line="366" selection-start-column="0" selection-end-line="366" selection-end-column="0" />
           <folding />
         </state>
       </provider>

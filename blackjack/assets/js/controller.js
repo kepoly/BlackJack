@@ -38,23 +38,40 @@ app.run(function (services, $route, $routeParams, $rootScope, $http, $location, 
 
 app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
-
+    //These are not currently being used but it's a good visualization of what the Card deck looks like.
+    //As well we are keeping the order of the cards Hearts Diamonds Clubs Spades to Mix them Up more than a normal Deck.
     $scope.cards = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King'];
     $scope.suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+
+    //Allows you to set the number of decks to be played with.
+    //Should be a whole Number since this is blackjack and not something like euchre.
     $scope.numOfDecks = 4;
 
+    //Boolen to check if the player is done his hand.
     $scope.playersDone = 0;
+
+    //Boolean to check if its the dealers time to go, It is different from the above since we use it to
+    // hide the dealers first Card.
     $scope.dealersGo = 0;
 
+    //Counter to see how many aces are currently in a hand.
     $scope.aceCheck = 0;
+
+    //I have to check and see if this is being used.
     $scope.betChange = 0;
+
+    //Allows you/the user to set the amount to bet for each hand. Maybe add some chips and a method to show them.
     $scope.betAmount = 10;
+
+    //The Starting Balance. We can impelment this server side if we want it to persist. Since this is just for fun.
+    //We can leave it on the client for now. There is several options for this ie: DB, firebase, nosql, files, sessions etc.
     $scope.startingBalance = 1000;
 
-
+    //The players/dealers hand decleration that holds the actual cards in his hand(the cards are objects)
     $scope.playersCards = [];
     $scope.dealersCards = [];
 
+    //each suit is numbered from 1-4 return the corresponding suit from cardValue.
     $scope.returnCardSuit = function (cardValue) {
         switch (cardValue) {
             case 1:
@@ -76,6 +93,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         return $scope.returnVal;
     }
 
+    //Return the value of the card being passed in. ace is 1, 10 is jack, 11 queen, 12 king, default 11
     $scope.returnCardValue = function (cardValue) {
         switch (cardValue) {
             case 1:
@@ -124,6 +142,8 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         return $scope.returnVal;
     }
 
+    //Return the Card name like above but return the actual string value to be shown to the user and processed
+    //to create the image link.
     $scope.returnCardName = function (cardValue) {
 
         switch (cardValue) {
@@ -174,6 +194,7 @@ app.controller('listCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }
 
+    //Creating a new deck, can be called by itself or shuffled like shown below.
     $scope.newDeck = function () {
         var suit;
         var number;
