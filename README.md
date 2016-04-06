@@ -8,4 +8,4 @@ Does not need PHP to run I just use apache and enjoy include/require
 
 Very rough, Still has many procedural characteristics. 
 
-** Checkout my PHP or Java Blackjack Games **
+** Checkout my PHP or Java Blackjack Games for better versions**
